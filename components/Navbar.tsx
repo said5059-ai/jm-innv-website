@@ -38,16 +38,16 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "border-b border-white/10 bg-white/70 backdrop-blur-3xl shadow-[0_10px_40px_rgba(15,23,42,0.06)]"
-            : "bg-transparent"
-        }`}
+        className={`sticky top-0 z-50 border-b border-black/5 transition-all duration-500 ${
+  scrolled
+    ? "border-b border-white/10 bg-white/70 backdrop-blur-3xl shadow-[0_10px_40px_rgba(15,23,42,0.06)]"
+    : "bg-white/80 backdrop-blur-xl"
+}`}
       >
-        <div className="mx-auto flex h-[70px] max-w-7xl items-center justify-between px-6">
+        <div className="mx-auto flex h-[82px] max-w-7xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-4">
             <div
-              className={`relative flex h-[44px] w-[44px] items-center justify-center overflow-hidden rounded-2xl border transition-all duration-500 ${
+              className={`relative flex h-[56px] w-[56px] items-center justify-center overflow-hidden rounded-2xl border transition-all duration-500 ${
                 scrolled
                   ? "border-white/10 bg-white/10"
                   : "border-[#08a982]/10 bg-white"
@@ -56,15 +56,15 @@ export default function Navbar() {
               <Image
                 src="/icon.png"
                 alt="JM INNV"
-                width={38}
-                height={38}
+                width={48}
+                height={48}
                 className="object-contain"
               />
             </div>
 
             <div className="leading-tight">
               <p
-                className={`text-[28px] font-semibold tracking-tight transition ${
+                className={`text-[34px] font-black tracking-tight transition ${
                   scrolled ? "text-[#07111f]" : "text-[#07111f]"
                 }`}
               >
@@ -81,14 +81,14 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-2 xl:flex">
+          <nav className="hidden items-center gap-3 xl:flex">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={`rounded-full px-4 py-2.5 text-sm font-semibold tracking-tight transition-all duration-300 ${
                   scrolled
-                    ? "text-white/80 hover:bg-[#07111f] hover:text-white"
+                    ? "text-[#07111f] hover:bg-[#07111f] hover:text-white"
                     : "text-slate-700 hover:bg-[#08a982]/10 hover:text-[#08a982]"
                 }`}
               >
@@ -101,7 +101,7 @@ export default function Navbar() {
             <a
               href="tel:+998931361920"
               className={`text-sm font-black transition ${
-                scrolled ? "text-white" : "text-white"
+                scrolled ? "text-[#07111f]" : "text-[#07111f]"
               }`}
             >
               +998 93 136 19 20
