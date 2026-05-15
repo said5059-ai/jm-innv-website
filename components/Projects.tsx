@@ -9,61 +9,61 @@ const projects = [
     category: "CRM • Automation",
     image: "/projects/crm2.jpg",
     description:
-      "Автоматизация продаж, управление клиентами и аналитика для бизнеса.",
+      "Платформа для управления продажами, клиентами, заявками и аналитикой в единой системе.",
+    metrics: ["+42% скорость обработки", "15+ процессов автоматизировано"],
   },
   {
     title: "Enterprise Dashboard",
     category: "Analytics • ERP",
     image: "/projects/kpi.jpg",
     description:
-      "Система мониторинга KPI, отчётности и внутренних бизнес-процессов.",
+      "Интерактивная панель KPI, отчётности и мониторинга бизнес-процессов в реальном времени.",
+    metrics: ["3.2x рост контроля", "Real-time аналитика"],
   },
   {
     title: "Business Automation",
     category: "AI • Integrations",
     image: "/projects/auto.png",
     description:
-      "Интеграции Telegram, AI-инструменты и автоматизация задач компании.",
+      "Интеграции Telegram, AI-инструменты, уведомления и автоматизация операционных задач.",
+    metrics: ["-60% ручной работы", "24/7 автоматизация"],
   },
 ];
 
 export default function Projects() {
   return (
-    <section
-      id="projects"
-      className="relative overflow-hidden bg-[#f7fbff] py-28"
-    >
-      <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-[#08a982]/6 blur-3xl" />
-      <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-cyan-300/10 blur-3xl" />
+    <section id="projects" className="bg-white py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#08a982]">
+              Кейсы
+            </p>
 
-      <div className="relative mx-auto max-w-7xl px-6">
-        <div className="max-w-3xl">
-          <p className="text-sm font-black uppercase tracking-[0.28em] text-[#08a982]">
-            PROJECTS
-          </p>
+            <h2 className="mt-5 text-4xl font-black leading-tight text-[#07111f] md:text-6xl">
+              Решения, которые работают
+              <span className="text-[#08a982]"> на результат</span>
+            </h2>
+          </div>
 
-          <h2 className="mt-5 text-4xl font-black leading-tight text-[#07111f] md:text-6xl">
-            Кейсы и digital
-            <span className="text-[#08a982]"> решения</span>
-          </h2>
-
-          <p className="mt-6 text-lg leading-8 text-slate-600">
-            Создаём enterprise-продукты, CRM-системы и платформы,
-            которые помогают компаниям масштабироваться.
+          <p className="max-w-2xl text-lg leading-8 text-slate-600 lg:ml-auto">
+            Проектируем и внедряем цифровые продукты, которые помогают бизнесу
+            быстрее обрабатывать заявки, видеть аналитику и сокращать ручную
+            работу.
           </p>
         </div>
 
-        <div className="mt-20 grid gap-8 lg:grid-cols-3">
+        <div className="mt-16 space-y-8">
           {projects.map((project, index) => (
             <motion.article
               key={project.title}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 36 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.12 }}
+              transition={{ delay: index * 0.08 }}
               viewport={{ once: true }}
-              className="group overflow-hidden rounded-[34px] border border-white/10 bg-white/5 backdrop-blur-xl transition duration-500 hover:-translate-y-2 hover:border-[#08a982]/30"
+              className="group grid overflow-hidden rounded-[34px] border border-slate-200 bg-[#f7fbff] shadow-[0_24px_80px_rgba(15,23,42,0.06)] transition duration-500 hover:-translate-y-1 hover:border-[#08a982]/30 hover:bg-white lg:grid-cols-[1.05fr_0.95fr]"
             >
-              <div className="relative h-72 overflow-hidden">
+              <div className="relative min-h-[360px] overflow-hidden bg-[#07111f]">
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -71,27 +71,44 @@ export default function Projects() {
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#07111f] via-[#07111f]/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#07111f]/70 via-[#07111f]/10 to-transparent" />
 
-                <div className="absolute left-5 top-5 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-widest text-white backdrop-blur-xl">
+                <div className="absolute left-7 top-7 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-black uppercase tracking-widest text-white backdrop-blur-xl">
                   {project.category}
                 </div>
               </div>
 
-              <div className="p-7">
-                <h3 className="text-3xl font-black text-white">
+              <div className="flex flex-col p-8 md:p-10">
+                <h3 className="text-3xl font-black tracking-tight text-[#07111f] md:text-4xl">
                   {project.title}
                 </h3>
 
-                <p className="mt-5 leading-7 text-slate-400">
+                <p className="mt-6 text-lg leading-8 text-slate-600">
                   {project.description}
                 </p>
 
-                <div className="mt-8 flex items-center gap-2 text-sm font-black text-[#08a982]">
-                  Смотреть проект
-                  <span className="transition group-hover:translate-x-1">
-                    →
-                  </span>
+                <div className="mt-8 grid gap-3">
+                  {project.metrics.map((metric) => (
+                    <div
+                      key={metric}
+                      className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-sm font-black text-[#07111f]"
+                    >
+                      <span className="mr-2 text-[#08a982]">●</span>
+                      {metric}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-auto pt-10">
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#07111f] px-7 py-4 text-sm font-black text-white transition hover:-translate-y-1 hover:bg-[#08a982]"
+                  >
+                    Обсудить похожий проект
+                    <span className="transition group-hover:translate-x-1">
+                      →
+                    </span>
+                  </a>
                 </div>
               </div>
             </motion.article>
