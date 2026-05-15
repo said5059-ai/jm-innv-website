@@ -5,31 +5,25 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
-    title: "CRM для отдела продаж",
-    category: "Automation",
+    title: "CRM Automation Platform",
+    category: "CRM • Automation",
+    image: "/projects/crm2.jpg",
     description:
-      "CRM-система для управления клиентами, задачами и аналитикой.",
-    metric: "+42%",
-    metricLabel: "скорость обработки заявок",
-    image: "/projects/crm.jpg",
+      "Автоматизация продаж, управление клиентами и аналитика для бизнеса.",
   },
   {
-    title: "Corporate Dashboard",
-    category: "Analytics",
+    title: "Enterprise Dashboard",
+    category: "Analytics • ERP",
+    image: "/projects/kpi.jpg",
     description:
-      "Панель аналитики и KPI мониторинга для бизнеса в реальном времени.",
-    metric: "3.2x",
-    metricLabel: "рост эффективности",
-    image: "/projects/dashboard.jpg",
+      "Система мониторинга KPI, отчётности и внутренних бизнес-процессов.",
   },
   {
     title: "Business Automation",
-    category: "Enterprise",
+    category: "AI • Integrations",
+    image: "/projects/auto.png",
     description:
-      "ERP, Telegram-интеграции и автоматизация внутренних процессов.",
-    metric: "-60%",
-    metricLabel: "ручной работы",
-    image: "/projects/automation.jpg",
+      "Интеграции Telegram, AI-инструменты и автоматизация задач компании.",
   },
 ];
 
@@ -37,36 +31,37 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="bg-white py-28"
+      className="relative overflow-hidden bg-[#f7fbff] py-28"
     >
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <div className="max-w-3xl">
-            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#08a982]">
-              PROJECTS
-            </p>
+      <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-[#08a982]/6 blur-3xl" />
+      <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-cyan-300/10 blur-3xl" />
 
-            <h2 className="mt-5 text-4xl font-black leading-tight text-[#07111f] md:text-6xl">
-              Кейсы, которые дают
-              <span className="text-[#08a982]"> результат</span>
-            </h2>
-          </div>
+      <div className="relative mx-auto max-w-7xl px-6">
+        <div className="max-w-3xl">
+          <p className="text-sm font-black uppercase tracking-[0.28em] text-[#08a982]">
+            PROJECTS
+          </p>
 
-          <p className="max-w-md text-lg leading-8 text-slate-600">
-            Мы проектируем решения для роста бизнеса,
-            автоматизации процессов и повышения эффективности компаний.
+          <h2 className="mt-5 text-4xl font-black leading-tight text-[#07111f] md:text-6xl">
+            Кейсы и digital
+            <span className="text-[#08a982]"> решения</span>
+          </h2>
+
+          <p className="mt-6 text-lg leading-8 text-slate-600">
+            Создаём enterprise-продукты, CRM-системы и платформы,
+            которые помогают компаниям масштабироваться.
           </p>
         </div>
 
-        <div className="mt-20 grid gap-7 lg:grid-cols-3">
+        <div className="mt-20 grid gap-8 lg:grid-cols-3">
           {projects.map((project, index) => (
             <motion.article
               key={project.title}
-              initial={{ opacity: 0, y: 36 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.12 }}
               viewport={{ once: true }}
-              className="group overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-[0_25px_80px_rgba(15,23,42,0.06)] transition duration-500 hover:-translate-y-2 hover:border-[#08a982]/30"
+              className="group overflow-hidden rounded-[34px] border border-white/10 bg-white/5 backdrop-blur-xl transition duration-500 hover:-translate-y-2 hover:border-[#08a982]/30"
             >
               <div className="relative h-72 overflow-hidden">
                 <Image
@@ -76,34 +71,24 @@ export default function Projects() {
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#07111f]/70 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#07111f] via-[#07111f]/20 to-transparent" />
 
-                <div className="absolute left-6 top-6 rounded-full bg-white/90 px-4 py-2 text-xs font-black uppercase tracking-widest text-[#08a982] backdrop-blur-xl">
+                <div className="absolute left-5 top-5 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-widest text-white backdrop-blur-xl">
                   {project.category}
-                </div>
-
-                <div className="absolute bottom-6 left-6">
-                  <p className="text-4xl font-black text-white">
-                    {project.metric}
-                  </p>
-
-                  <p className="mt-1 text-sm text-white/80">
-                    {project.metricLabel}
-                  </p>
                 </div>
               </div>
 
-              <div className="p-8">
-                <h3 className="text-2xl font-black text-[#07111f]">
+              <div className="p-7">
+                <h3 className="text-3xl font-black text-white">
                   {project.title}
                 </h3>
 
-                <p className="mt-4 leading-7 text-slate-600">
+                <p className="mt-5 leading-7 text-slate-400">
                   {project.description}
                 </p>
 
-                <div className="mt-8 flex items-center gap-2 text-sm font-bold text-[#08a982]">
-                  Смотреть кейс
+                <div className="mt-8 flex items-center gap-2 text-sm font-black text-[#08a982]">
+                  Смотреть проект
                   <span className="transition group-hover:translate-x-1">
                     →
                   </span>

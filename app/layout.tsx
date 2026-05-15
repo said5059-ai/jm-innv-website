@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import FloatingTelegram from "@/components/FloatingTelegram";
 
 import "./globals.css";
+import BackgroundEffects from "@/components/BackgroundEffects";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,12 +32,17 @@ export default function RootLayout({
       lang="ru"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[#f4f8fb] text-[#111827]">
-        {children}
+      <body className="relative min-h-full overflow-x-hidden bg-[#f4f8fb] text-[#111827]">
+  <BackgroundEffects />
 
-        <Footer />
-        <FloatingTelegram />
-      </body>
+  <div className="relative z-10">
+    {children}
+
+    <Footer />
+  </div>
+
+  <FloatingTelegram />
+</body>
     </html>
   );
 }
