@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 const links = [
   { name: "Главная", href: "/" },
   { name: "Услуги", href: "/services" },
-  { name: "О компании", href: "/about" },
   { name: "Кейсы", href: "/projects" },
   { name: "Клиенты", href: "/clients" },
   { name: "Контакты", href: "/contact" },
@@ -41,14 +40,14 @@ export default function Navbar() {
       <header
         className={`sticky top-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "border-b border-white/10 bg-[#07111f]/75 backdrop-blur-2xl"
+            ? "border-b border-white/10 bg-white/70 backdrop-blur-3xl shadow-[0_10px_40px_rgba(15,23,42,0.06)]"
             : "bg-transparent"
         }`}
       >
-        <div className="mx-auto flex h-[92px] max-w-7xl items-center justify-between px-6">
+        <div className="mx-auto flex h-[70px] max-w-7xl items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-4">
             <div
-              className={`relative flex h-[60px] w-[60px] items-center justify-center overflow-hidden rounded-2xl border transition-all duration-500 ${
+              className={`relative flex h-[44px] w-[44px] items-center justify-center overflow-hidden rounded-2xl border transition-all duration-500 ${
                 scrolled
                   ? "border-white/10 bg-white/10"
                   : "border-[#08a982]/10 bg-white"
@@ -57,16 +56,16 @@ export default function Navbar() {
               <Image
                 src="/icon.png"
                 alt="JM INNV"
-                width={48}
-                height={48}
+                width={38}
+                height={38}
                 className="object-contain"
               />
             </div>
 
             <div className="leading-tight">
               <p
-                className={`text-2xl font-black tracking-tight transition ${
-                  scrolled ? "text-white" : "text-[#07111f]"
+                className={`text-[28px] font-semibold tracking-tight transition ${
+                  scrolled ? "text-[#07111f]" : "text-[#07111f]"
                 }`}
               >
                 JM INNV
@@ -87,9 +86,9 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`rounded-full px-5 py-3 text-sm font-black transition-all duration-300 ${
+                className={`rounded-full px-4 py-2.5 text-sm font-semibold tracking-tight transition-all duration-300 ${
                   scrolled
-                    ? "text-white/80 hover:bg-white/10 hover:text-white"
+                    ? "text-white/80 hover:bg-[#07111f] hover:text-white"
                     : "text-slate-700 hover:bg-[#08a982]/10 hover:text-[#08a982]"
                 }`}
               >
@@ -102,7 +101,7 @@ export default function Navbar() {
             <a
               href="tel:+998931361920"
               className={`text-sm font-black transition ${
-                scrolled ? "text-white" : "text-[#07111f]"
+                scrolled ? "text-white" : "text-white"
               }`}
             >
               +998 93 136 19 20
@@ -118,7 +117,7 @@ export default function Navbar() {
 
             <a
               href="#contact"
-              className="rounded-full bg-white px-6 py-3 text-sm font-black text-[#07111f] transition hover:-translate-y-1 hover:bg-[#08a982] hover:text-white"
+              className="rounded-full bg-white px-5 py-2.5 text-sm font-black text-[#07111f] transition hover:-translate-y-1 hover:bg-[#08a982] hover:shadow-[0_12px_30px_rgba(8,169,130,0.35)] hover:text-white"
             >
               Обсудить проект
             </a>
