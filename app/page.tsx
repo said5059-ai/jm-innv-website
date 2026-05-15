@@ -10,6 +10,7 @@ import ClientsStrip from "@/components/ClientsStrip";
 import Process from "@/components/Process";
 import TechStack from "@/components/TechStack";
 import Testimonials from "@/components/Testimonials";
+import HeroEffects from "@/components/HeroEffects";
 
 export default function Home() {
   return (
@@ -19,12 +20,13 @@ export default function Home() {
         <Navbar />
 
         <section className="relative overflow-hidden bg-[url('/hero-bg.jpg')] bg-cover bg-center">
-          <div className="absolute inset-0 bg-white/88 backdrop-blur-[2px]" />
+  <div className="absolute inset-0 bg-white/88 backdrop-blur-[2px]" />
+  <HeroEffects />
 
-          <div className="relative">
-            <Hero />
-          </div>
-        </section>
+  <div className="relative">
+    <Hero />
+  </div>
+</section>
       </div>
 
       <Services />

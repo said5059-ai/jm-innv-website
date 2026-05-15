@@ -3,17 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const links = [
   { name: "Главная", href: "/" },
   { name: "Услуги", href: "/services" },
-  { name: "Лицензии", href: "/licenses" },
   { name: "О компании", href: "/about" },
   { name: "Кейсы", href: "/projects" },
   { name: "Клиенты", href: "/clients" },
-  { name: "Команда", href: "/team" },
-  { name: "Блог", href: "/blog" },
   { name: "Контакты", href: "/contact" },
 ];
 
@@ -27,68 +24,118 @@ function TelegramIcon() {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="relative z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-[96px] max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="flex shrink-0 items-center gap-4">
-          <div className="relative flex h-[64px] w-[64px] items-center justify-center overflow-hidden rounded-2xl border border-[#08a982]/10 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
-            <Image
-              src="/icon.png"
-              alt="JM INNV"
-              width={52}
-              height={52}
-              className="object-contain"
-            />
-          </div>
-
-          <div className="leading-tight">
-            <p className="text-2xl font-black tracking-tight text-[#07111f]">
-              JM INNV
-            </p>
-            <p className="text-[11px] font-bold uppercase tracking-[0.35em] text-slate-500">
-              Digital Solutions
-            </p>
-          </div>
-        </Link>
-
-        <nav className="hidden items-center gap-5 xl:flex">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="whitespace-nowrap text-[13px] font-bold text-slate-700 transition hover:text-[#08a982]"
+    <>
+      <header
+        className={`sticky top-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? "border-b border-white/10 bg-[#07111f]/75 backdrop-blur-2xl"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="mx-auto flex h-[92px] max-w-7xl items-center justify-between px-6">
+          <Link href="/" className="flex items-center gap-4">
+            <div
+              className={`relative flex h-[60px] w-[60px] items-center justify-center overflow-hidden rounded-2xl border transition-all duration-500 ${
+                scrolled
+                  ? "border-white/10 bg-white/10"
+                  : "border-[#08a982]/10 bg-white"
+              }`}
             >
-              {link.name}
-            </Link>
-          ))}
-        </nav>
+              <Image
+                src="/icon.png"
+                alt="JM INNV"
+                width={48}
+                height={48}
+                className="object-contain"
+              />
+            </div>
 
-        <div className="hidden shrink-0 items-center gap-4 xl:flex">
-          <a
-            href="tel:+998931361920"
-            className="whitespace-nowrap text-sm font-black text-[#07111f]"
-          >
-            +998 93 136 19 20
-          </a>
+            <div className="leading-tight">
+              <p
+                className={`text-2xl font-black tracking-tight transition ${
+                  scrolled ? "text-white" : "text-[#07111f]"
+                }`}
+              >
+                JM INNV
+              </p>
 
-          <a
-            href="https://t.me/your_username"
-            target="_blank"
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-[#08a982] text-white shadow-[0_16px_35px_rgba(8,169,130,0.35)] transition hover:-translate-y-0.5"
+              <p
+                className={`text-[10px] font-bold uppercase tracking-[0.35em] transition ${
+                  scrolled ? "text-white/60" : "text-slate-500"
+                }`}
+              >
+                Digital Solutions
+              </p>
+            </div>
+          </Link>
+
+          <nav className="hidden items-center gap-2 xl:flex">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`rounded-full px-5 py-3 text-sm font-black transition-all duration-300 ${
+                  scrolled
+                    ? "text-white/80 hover:bg-white/10 hover:text-white"
+                    : "text-slate-700 hover:bg-[#08a982]/10 hover:text-[#08a982]"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="hidden items-center gap-4 xl:flex">
+            <a
+              href="tel:+998931361920"
+              className={`text-sm font-black transition ${
+                scrolled ? "text-white" : "text-[#07111f]"
+              }`}
+            >
+              +998 93 136 19 20
+            </a>
+
+            <a
+              href="https://t.me/your_username"
+              target="_blank"
+              className="flex h-12 w-12 items-center justify-center rounded-full bg-[#08a982] text-white shadow-[0_14px_40px_rgba(8,169,130,0.35)] transition duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-[#07c094]"
+            >
+              <TelegramIcon />
+            </a>
+
+            <a
+              href="#contact"
+              className="rounded-full bg-white px-6 py-3 text-sm font-black text-[#07111f] transition hover:-translate-y-1 hover:bg-[#08a982] hover:text-white"
+            >
+              Обсудить проект
+            </a>
+          </div>
+
+          <button
+            onClick={() => setOpen(true)}
+            className={`flex h-12 w-12 items-center justify-center rounded-2xl border text-2xl transition xl:hidden ${
+              scrolled
+                ? "border-white/10 bg-white/10 text-white"
+                : "border-slate-200 bg-white text-[#07111f]"
+            }`}
           >
-            <TelegramIcon />
-          </a>
+            ≡
+          </button>
         </div>
-
-        <button
-          onClick={() => setOpen(true)}
-          className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-white text-2xl text-[#07111f] shadow-sm xl:hidden"
-          aria-label="Open menu"
-        >
-          ≡
-        </button>
-      </div>
+      </header>
 
       <AnimatePresence>
         {open && (
@@ -96,14 +143,18 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[999] bg-[#07111f]/80 backdrop-blur-xl xl:hidden"
+            className="fixed inset-0 z-[999] bg-[#07111f]/80 backdrop-blur-xl"
           >
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 28, stiffness: 220 }}
-              className="ml-auto flex h-full w-full max-w-md flex-col bg-white px-6 py-6 shadow-[0_30px_100px_rgba(0,0,0,0.25)]"
+              transition={{
+                type: "spring",
+                damping: 28,
+                stiffness: 240,
+              }}
+              className="ml-auto flex h-full w-full max-w-md flex-col bg-[#07111f] px-6 py-6"
             >
               <div className="flex items-center justify-between">
                 <Link
@@ -111,21 +162,21 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   className="flex items-center gap-3"
                 >
-                  <div className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border border-[#08a982]/10 bg-white shadow-sm">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white">
                     <Image
                       src="/icon.png"
                       alt="JM INNV"
-                      width={46}
-                      height={46}
-                      className="object-contain"
+                      width={44}
+                      height={44}
                     />
                   </div>
 
                   <div>
-                    <p className="text-xl font-black text-[#07111f]">
+                    <p className="text-xl font-black text-white">
                       JM INNV
                     </p>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500">
+
+                    <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/50">
                       Digital
                     </p>
                   </div>
@@ -133,25 +184,24 @@ export default function Navbar() {
 
                 <button
                   onClick={() => setOpen(false)}
-                  className="flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 text-2xl text-[#07111f]"
-                  aria-label="Close menu"
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-2xl text-white"
                 >
                   ×
                 </button>
               </div>
 
-              <nav className="mt-10 grid gap-2">
+              <nav className="mt-12 flex flex-col gap-2">
                 {links.map((link, index) => (
                   <motion.div
                     key={link.href}
-                    initial={{ opacity: 0, x: 24 }}
+                    initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.04 }}
+                    transition={{ delay: index * 0.05 }}
                   >
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className="flex items-center justify-between rounded-2xl border border-slate-100 bg-[#f7fbff] px-5 py-4 text-base font-black text-[#07111f] transition hover:border-[#08a982]/30 hover:text-[#08a982]"
+                      className="flex items-center justify-between rounded-2xl border border-white/5 bg-white/5 px-5 py-4 text-lg font-black text-white transition hover:border-[#08a982]/40 hover:bg-[#08a982]/10"
                     >
                       {link.name}
                       <span className="text-[#08a982]">→</span>
@@ -160,14 +210,14 @@ export default function Navbar() {
                 ))}
               </nav>
 
-              <div className="mt-auto rounded-[28px] border border-slate-200 bg-[#f7fbff] p-6">
-                <p className="text-sm font-bold text-slate-500">
+              <div className="mt-auto rounded-[30px] border border-white/10 bg-white/5 p-6">
+                <p className="text-sm font-bold text-white/50">
                   Связаться с нами
                 </p>
 
                 <a
                   href="tel:+998931361920"
-                  className="mt-2 block text-xl font-black text-[#07111f]"
+                  className="mt-2 block text-2xl font-black text-white"
                 >
                   +998 93 136 19 20
                 </a>
@@ -175,7 +225,7 @@ export default function Navbar() {
                 <a
                   href="https://t.me/your_username"
                   target="_blank"
-                  className="mt-5 flex items-center justify-center gap-3 rounded-full bg-[#08a982] px-6 py-4 text-sm font-black text-white shadow-[0_16px_35px_rgba(8,169,130,0.28)]"
+                  className="mt-6 flex items-center justify-center gap-3 rounded-full bg-[#08a982] px-6 py-4 text-sm font-black text-white shadow-[0_16px_40px_rgba(8,169,130,0.3)]"
                 >
                   <TelegramIcon />
                   Telegram
@@ -185,6 +235,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
