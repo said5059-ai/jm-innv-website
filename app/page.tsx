@@ -19,7 +19,7 @@ export default function Home() {
         <PromoBar />
         <Navbar />
 
-        <section className="relative overflow-hidden bg-[url('/hero-bg.jpg')] bg-cover bg-center">
+        <section className="relative overflow-hidden bg-[url('/hero-bg.avif')] bg-cover bg-center">
   <div className="absolute inset-0 bg-white/88 backdrop-blur-[2px]" />
   <HeroEffects />
 
