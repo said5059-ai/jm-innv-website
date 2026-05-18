@@ -20,7 +20,7 @@ export default function Home() {
         <Navbar />
 
         <section className="relative overflow-hidden bg-[url('/hero-bg.avif')] bg-cover bg-center">
-  <div className="absolute inset-0 bg-white/88 backdrop-blur-[2px]" />
+  <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/72 to-white/25" />
   <HeroEffects />
 
   <div className="relative">
