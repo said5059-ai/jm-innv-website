@@ -19,11 +19,8 @@ export default function Contact() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    setLoading(true);
-    setSuccess(false);
-setError("Не удалось отправить заявку");
-
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
 
     const data = {
       name: formData.get("name"),
@@ -31,6 +28,10 @@ setError("Не удалось отправить заявку");
       service: formData.get("service"),
       message: formData.get("message"),
     };
+
+    setLoading(true);
+    setSuccess(false);
+    setError("");
 
     try {
       const response = await fetch("/api/contact", {
@@ -45,12 +46,12 @@ setError("Не удалось отправить заявку");
         throw new Error("Ошибка отправки");
       }
 
+      setError("");
       setSuccess(true);
-setError("");
-event.currentTarget.reset();
-    } catch (err) {
+      form.reset();
+    } catch {
       setSuccess(false);
-setError("Не удалось отправить заявку");
+      setError("Не удалось отправить заявку");
     } finally {
       setLoading(false);
     }
@@ -77,7 +78,6 @@ setError("Не удалось отправить заявку");
           <div className="mt-10 space-y-5">
             <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_20px_60px_rgba(15,23,42,0.05)]">
               <p className="text-sm font-bold text-slate-500">Телефон</p>
-
               <p className="mt-2 text-xl font-black text-[#07111f]">
                 +998 93 136 19 20
               </p>
@@ -85,7 +85,6 @@ setError("Не удалось отправить заявку");
 
             <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_20px_60px_rgba(15,23,42,0.05)]">
               <p className="text-sm font-bold text-slate-500">Email</p>
-
               <p className="mt-2 text-xl font-black text-[#07111f]">
                 info@jminnv.uz
               </p>
@@ -111,7 +110,6 @@ setError("Не удалось отправить заявку");
               <label className="text-sm font-bold text-slate-600">
                 Ваше имя
               </label>
-
               <input
                 name="name"
                 type="text"
@@ -125,7 +123,6 @@ setError("Не удалось отправить заявку");
               <label className="text-sm font-bold text-slate-600">
                 Телефон
               </label>
-
               <input
                 name="phone"
                 type="tel"
@@ -139,7 +136,6 @@ setError("Не удалось отправить заявку");
               <label className="text-sm font-bold text-slate-600">
                 Услуга
               </label>
-
               <select
                 name="service"
                 className="mt-3 w-full rounded-2xl border border-slate-200 bg-[#f7fbff] px-5 py-4 text-[#07111f] outline-none transition focus:border-[#08a982]"
@@ -155,7 +151,6 @@ setError("Не удалось отправить заявку");
               <label className="text-sm font-bold text-slate-600">
                 Сообщение
               </label>
-
               <textarea
                 name="message"
                 placeholder="Кратко опишите задачу"
@@ -167,7 +162,7 @@ setError("Не удалось отправить заявку");
             <button
               type="submit"
               disabled={loading}
-              className="mt-3 rounded-full bg-[#08a982] px-8 py-4 text-sm font-black text-white shadow-[0_18px_40px_rgba(8,169,130,0.28)] transition hover:-translate-y-1 hover:bg-[#079774] disabled:opacity-70"
+              className="mt-3 rounded-full bg-[#08a982] px-8 py-4 text-sm font-black text-white shadow-[0_18px_40px_rgba(8,169,130,0.28)] transition hover:-translate-y-1 hover:bg-[#079774] disabled:cursor-not-allowed disabled:opacity-70"
             >
               {loading ? "Отправляем..." : "Отправить заявку"}
             </button>
@@ -179,9 +174,7 @@ setError("Не удалось отправить заявку");
             )}
 
             {error && (
-              <p className="text-sm font-bold text-red-500">
-                {error}
-              </p>
+              <p className="text-sm font-bold text-red-500">{error}</p>
             )}
           </div>
         </form>
