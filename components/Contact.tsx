@@ -32,6 +32,7 @@ export default function Contact() {
           <div className="mt-10 space-y-5">
             <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_20px_60px_rgba(15,23,42,0.05)]">
               <p className="text-sm font-bold text-slate-500">Телефон</p>
+
               <p className="mt-2 text-xl font-black text-[#07111f]">
                 +998 93 136 19 20
               </p>
@@ -39,13 +40,14 @@ export default function Contact() {
 
             <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_20px_60px_rgba(15,23,42,0.05)]">
               <p className="text-sm font-bold text-slate-500">Email</p>
+
               <p className="mt-2 text-xl font-black text-[#07111f]">
                 info@jminnv.uz
               </p>
             </div>
 
             <Link
-              href="https://t.me/your_username"
+              href="https://t.me/jminnv"
               target="_blank"
               className="inline-flex items-center gap-3 rounded-full bg-[#08a982] px-8 py-4 text-sm font-black text-white shadow-[0_18px_40px_rgba(8,169,130,0.28)] transition hover:-translate-y-1 hover:bg-[#079774]"
             >
@@ -55,14 +57,35 @@ export default function Contact() {
           </div>
         </div>
 
-        <form className="rounded-[38px] border border-slate-200 bg-white p-8 shadow-[0_35px_100px_rgba(15,23,42,0.08)] md:p-10">
+        <form
+          action="https://formsubmit.co/info@jminnv.uz"
+          method="POST"
+          className="rounded-[38px] border border-slate-200 bg-white p-8 shadow-[0_35px_100px_rgba(15,23,42,0.08)] md:p-10"
+        >
+          <input type="hidden" name="_captcha" value="false" />
+
+          <input
+            type="hidden"
+            name="_subject"
+            value="Новая заявка с сайта JM INNV"
+          />
+
+          <input
+            type="hidden"
+            name="_template"
+            value="table"
+          />
+
           <div className="grid gap-5">
             <div>
               <label className="text-sm font-bold text-slate-600">
                 Ваше имя
               </label>
+
               <input
+                name="name"
                 type="text"
+                required
                 placeholder="Введите имя"
                 className="mt-3 w-full rounded-2xl border border-slate-200 bg-[#f7fbff] px-5 py-4 text-[#07111f] outline-none transition focus:border-[#08a982]"
               />
@@ -72,8 +95,11 @@ export default function Contact() {
               <label className="text-sm font-bold text-slate-600">
                 Телефон
               </label>
+
               <input
+                name="phone"
                 type="tel"
+                required
                 placeholder="+998"
                 className="mt-3 w-full rounded-2xl border border-slate-200 bg-[#f7fbff] px-5 py-4 text-[#07111f] outline-none transition focus:border-[#08a982]"
               />
@@ -83,7 +109,11 @@ export default function Contact() {
               <label className="text-sm font-bold text-slate-600">
                 Услуга
               </label>
-              <select className="mt-3 w-full rounded-2xl border border-slate-200 bg-[#f7fbff] px-5 py-4 text-[#07111f] outline-none transition focus:border-[#08a982]">
+
+              <select
+                name="service"
+                className="mt-3 w-full rounded-2xl border border-slate-200 bg-[#f7fbff] px-5 py-4 text-[#07111f] outline-none transition focus:border-[#08a982]"
+              >
                 <option>CRM система</option>
                 <option>Web разработка</option>
                 <option>Мобильное приложение</option>
@@ -95,7 +125,9 @@ export default function Contact() {
               <label className="text-sm font-bold text-slate-600">
                 Сообщение
               </label>
+
               <textarea
+                name="message"
                 placeholder="Кратко опишите задачу"
                 rows={5}
                 className="mt-3 w-full resize-none rounded-2xl border border-slate-200 bg-[#f7fbff] px-5 py-4 text-[#07111f] outline-none transition focus:border-[#08a982]"
@@ -103,7 +135,7 @@ export default function Contact() {
             </div>
 
             <button
-              type="button"
+              type="submit"
               className="mt-3 rounded-full bg-[#08a982] px-8 py-4 text-sm font-black text-white shadow-[0_18px_40px_rgba(8,169,130,0.28)] transition hover:-translate-y-1 hover:bg-[#079774]"
             >
               Отправить заявку
