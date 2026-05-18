@@ -21,7 +21,7 @@ export default function Contact() {
 
     setLoading(true);
     setSuccess(false);
-    setError("");
+setError("Не удалось отправить заявку");
 
     const formData = new FormData(event.currentTarget);
 
