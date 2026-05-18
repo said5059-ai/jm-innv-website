@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 function TelegramIcon() {
   return (
@@ -11,6 +12,50 @@ function TelegramIcon() {
 }
 
 export default function Contact() {
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setLoading(true);
+    setSuccess(false);
+    setError("");
+
+    const formData = new FormData(event.currentTarget);
+
+    const data = {
+      name: formData.get("name"),
+      phone: formData.get("phone"),
+      service: formData.get("service"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Ошибка отправки");
+      }
+
+      setSuccess(true);
+setError("");
+event.currentTarget.reset();
+    } catch (err) {
+      setSuccess(false);
+setError("Не удалось отправить заявку");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <section id="contact" className="bg-[#f7fbff] py-28">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[1fr_1.1fr]">
@@ -58,24 +103,9 @@ export default function Contact() {
         </div>
 
         <form
-          action="https://formsubmit.co/info@jminnv.uz"
-          method="POST"
+          onSubmit={handleSubmit}
           className="rounded-[38px] border border-slate-200 bg-white p-8 shadow-[0_35px_100px_rgba(15,23,42,0.08)] md:p-10"
         >
-          <input type="hidden" name="_captcha" value="false" />
-
-          <input
-            type="hidden"
-            name="_subject"
-            value="Новая заявка с сайта JM INNV"
-          />
-
-          <input
-            type="hidden"
-            name="_template"
-            value="table"
-          />
-
           <div className="grid gap-5">
             <div>
               <label className="text-sm font-bold text-slate-600">
@@ -136,10 +166,23 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="mt-3 rounded-full bg-[#08a982] px-8 py-4 text-sm font-black text-white shadow-[0_18px_40px_rgba(8,169,130,0.28)] transition hover:-translate-y-1 hover:bg-[#079774]"
+              disabled={loading}
+              className="mt-3 rounded-full bg-[#08a982] px-8 py-4 text-sm font-black text-white shadow-[0_18px_40px_rgba(8,169,130,0.28)] transition hover:-translate-y-1 hover:bg-[#079774] disabled:opacity-70"
             >
-              Отправить заявку
+              {loading ? "Отправляем..." : "Отправить заявку"}
             </button>
+
+            {success && (
+              <p className="text-sm font-bold text-green-600">
+                Заявка успешно отправлена
+              </p>
+            )}
+
+            {error && (
+              <p className="text-sm font-bold text-red-500">
+                {error}
+              </p>
+            )}
           </div>
         </form>
       </div>

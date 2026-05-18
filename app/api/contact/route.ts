@@ -1,64 +1,53 @@
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const body = await request.json();
+    const body = await req.json();
 
     const { name, phone, service, message } = body;
 
-    if (!name || !phone) {
-      return NextResponse.json(
-        { error: "Имя и телефон обязательны" },
-        { status: 400 }
-      );
-    }
-
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
-
-    if (!token || !chatId) {
-      return NextResponse.json(
-        { error: "Telegram env не настроен" },
-        { status: 500 }
-      );
-    }
-
     const text = `
-🚀 Новая заявка с сайта JM SOFT
+📩 Новая заявка с сайта JM INNV
 
 👤 Имя: ${name}
 📞 Телефон: ${phone}
 🛠 Услуга: ${service}
-💬 Сообщение: ${message || "Не указано"}
+
+💬 Сообщение:
+${message}
 `;
 
-    const telegramResponse = await fetch(
-      `https://api.telegram.org/bot${token}/sendMessage`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text,
-          parse_mode: "HTML",
-        }),
-      }
-    );
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
 
-    if (!telegramResponse.ok) {
-      return NextResponse.json(
-        { error: "Ошибка Telegram" },
-        { status: 500 }
-      );
+    const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage`;
+
+    const response = await fetch(telegramUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Telegram API error");
     }
 
-    return NextResponse.json({ success: true });
-  } catch {
+    return NextResponse.json({
+      success: true,
+    });
+  } catch (error) {
     return NextResponse.json(
-      { error: "Ошибка сервера" },
-      { status: 500 }
+      {
+        success: false,
+      },
+      {
+        status: 500,
+      }
     );
   }
 }
